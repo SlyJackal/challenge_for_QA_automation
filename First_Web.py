@@ -3,11 +3,16 @@
 После завершения работы потока он должен снова запускаться через заданный интервал.
 Интервал времени и название задачи указываются в конструкторе класса.
 Реальная работа потока имитируется случайным ожиданием и выводом названия перед завершением работы.
+---------------------------
+Сделай так чтоб завершалась и запускался новый поток.
 '''
 
 import random
 from time import sleep
 import threading
+
+range_of_tasks_start = 4
+range_of_tasks_finish = 10
 
 #Интервал времени и название задачи указываются в конструкторе класса.
 class My_task:
@@ -22,31 +27,45 @@ class My_task:
         #cлучайное ожидание
         sleep(random.randint(1, 4))
         #выводом названия перед завершением работы
-        print(self.name, 'закончил')    
+        print(f'{self.name} закончил\n')    
+
+def generate_number():
+    a = random.randrange(4, 10)
+    return a
 
 #создание задач
 tasks = [My_task('Name_1', 1), My_task('Name_2', 2), My_task('Name_3', 3)] 
 
 #функции циклов создания потоков с задачами
 def thread_one():
-    while True:
+    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
+    i = 0
+    while i < numbers_of_tasks:
         x = threading.Thread(target=tasks[0].thread_activity)
         x.start()
         x.join()
+        i += 1
         sleep(tasks[0].timer)
+        
 
 def thread_two():
-    while True:
+    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
+    i = 0
+    while i < numbers_of_tasks:
         x = threading.Thread(target=tasks[1].thread_activity)
         x.start()
         x.join()
+        i += 1
         sleep(tasks[1].timer)
 
 def thread_three():
-    while True:
+    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
+    i = 0
+    while i < numbers_of_tasks:
         x = threading.Thread(target=tasks[2].thread_activity)
         x.start()
         x.join()
+        i += 1
         sleep(tasks[2].timer)
 
 #запуск главных потоков для функций
