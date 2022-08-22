@@ -7,12 +7,17 @@
 Сделай так чтоб завершалась и запускался новый поток.
 '''
 
-import random
+from random import randint
 from time import sleep
-import threading
+from threading import Thread
 
+#Установка границ генерации количества задач
 range_of_tasks_start = 4
 range_of_tasks_finish = 10
+
+#Установка границ времени ожидания активности
+range_of_activity_start = 1
+range_of_activity_finish = 4
 
 #Интервал времени и название задачи указываются в конструкторе класса.
 class My_task:
@@ -25,55 +30,30 @@ class My_task:
     #Реальная работа потока имитируется случайным ожиданием и выводом названия перед завершением работы.
     def thread_activity(self):
         #cлучайное ожидание
-        sleep(random.randint(1, 4))
+        sleep(randint(range_of_activity_start, range_of_activity_finish))
         #выводом названия перед завершением работы
-        print(f'{self.name} закончил\n')    
+        print(f'{self.name} закончил')    
 
-def generate_number():
-    a = random.randrange(4, 10)
-    return a
-
-#создание задач
+#список задач
 tasks = [My_task('Name_1', 1), My_task('Name_2', 2), My_task('Name_3', 3)] 
 
 #функции циклов создания потоков с задачами
-def thread_one():
-    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
-    i = 0
-    while i < numbers_of_tasks:
-        x = threading.Thread(target=tasks[0].thread_activity)
-        x.start()
-        x.join()
-        i += 1
-        sleep(tasks[0].timer)
+def thread_common(task):
+    numbers_of_tasks = randint(range_of_tasks_start, range_of_tasks_finish)   
+    threads = list()
+    for i in range(numbers_of_tasks):
+        threads.append(Thread(target=task.thread_activity))
+        threads[i].start()
+        threads[i].join()
+        sleep(task.timer)
         
-
-def thread_two():
-    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
-    i = 0
-    while i < numbers_of_tasks:
-        x = threading.Thread(target=tasks[1].thread_activity)
-        x.start()
-        x.join()
-        i += 1
-        sleep(tasks[1].timer)
-
-def thread_three():
-    numbers_of_tasks = random.randrange(range_of_tasks_start, range_of_tasks_finish)
-    i = 0
-    while i < numbers_of_tasks:
-        x = threading.Thread(target=tasks[2].thread_activity)
-        x.start()
-        x.join()
-        i += 1
-        sleep(tasks[2].timer)
+#спиcок потоков
+flows = list()
 
 #запуск главных потоков для функций
-y_1 = threading.Thread(target=thread_one)
-y_1.start()
+for i in range(0, len(tasks)-1):   
+    flows.append(Thread(target=thread_common(tasks[i])))
+for flow in flows:
+    flows[i].start()
+    flows[i].join()
 
-y_2 = threading.Thread(target=thread_two)
-y_2.start()
-
-y_3 = threading.Thread(target=thread_three)
-y_3.start()
