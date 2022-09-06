@@ -1,6 +1,6 @@
-from pprint import pprint
 from pywinauto.application import Application
 from time import sleep
+#text_generator
 from string import ascii_letters, digits
 from random import randint, sample
 
@@ -11,14 +11,17 @@ def text_generator():
     rand_string = ''.join(sample(letters_and_digits, length))
     return(rand_string) 
 
-
 def common_notepad(text, sleep_time = 2):
     app = Application().start('notepad.exe')
     app.Notepad.Wait('visible')
     app.Notepad.edit.TypeKeys(text)
     sleep(sleep_time)
+    result = app.Notepad.Edit.window_text()
+    print('_______________________\n')
+    print(f'\nResult - {result}\n')
+    print('_______________________')
+    sleep(5)
     app.kill(soft=False)
-
 
 def notepadplusplus(text, sleep_time = 3):
     global app, read_text
@@ -28,8 +31,21 @@ def notepadplusplus(text, sleep_time = 3):
     notepad.Wait('ready')
     notepad.TypeKeys(text) 
     sleep(sleep_time)
-    read_text = app.notepad.Edit.window_text()
-    return app, read_text
+    result = app.Notepad.Edit.window_text()
+    print('_______________________\n')
+    print(f'\nResult - {result}\n')
+    print('_______________________')
+    return app
+
+def check_result():
+    app = Application().start('C:/Program Files/Notepad++/notepad++.exe')
+    notepad = app[u'Notepad++']
+    notepad.menu_select("File->Save")
+    notepad.Отмена.Edit.set_edit_text('test.txt')
+    notepad.Да.click()
+    notepad.menu_select("File->Save")
+    notepad.Открыть.Открыть.click(double=True)
+    print(notepad.Edit.window_text())
 
 def main_test():
     for i in range(0):
@@ -38,17 +54,22 @@ def main_test():
     for i in range(2):    
         text_generator()
         final_text = str()
-        final_text += rand_string
         notepadplusplus(rand_string)
+        final_text += rand_string
         app.kill(soft=False)
-    print('!!!!!!!!!!!!!!!!!!!!!!')
+    check_result()
+    '''print('!!!!!!!!!!!!!!!!!!!!!!')
     print(f'read_text = {read_text}')
     print(f'final_text = {final_text}')
     print('!!!!!!!!!!!!!!!!!!!!!!')
     eraser = '^a' + '{BACKSPACE}'
-    notepadplusplus(eraser)
+    notepadplusplus(eraser)'''
 
 
-main_test()
+#main_test()
+#check_result()
+text_generator()
+notepadplusplus(rand_string)
+common_notepad(rand_string)
 
 
