@@ -16,14 +16,27 @@ def common_notepad(text, sleep_time = 2):
     app.Notepad.Wait('visible')
     app.Notepad.edit.TypeKeys(text)
     sleep(sleep_time)
-    result = app.Notepad.Edit.window_text()
-    print('_______________________\n')
-    print(f'\nResult - {result}\n')
-    print('_______________________')
-    sleep(5)
+    sleep(sleep_time)
     app.kill(soft=False)
 
-def notepadplusplus(text, sleep_time = 3):
+def get_result():
+    app = Application().start('notepad.exe')
+    app.Notepad.Wait('visible')
+    result = app.Notepad.Edit.window_text()
+    if result == '':
+        result = 'EMPETY'
+    return result
+
+def check_result(rand_string, result):
+    if result == rand_string:
+        return 'PASS'
+    elif result == '':
+        return 'EMPETY'
+    else:
+        return 'FALL'
+
+
+""" def notepadplusplus(text, sleep_time = 3):
     global app, read_text
     app = Application().start('C:/Program Files/Notepad++/notepad++.exe')
     notepad = app[u'Notepad++']
@@ -35,9 +48,9 @@ def notepadplusplus(text, sleep_time = 3):
     print('_______________________\n')
     print(f'\nResult - {result}\n')
     print('_______________________')
-    return app
+    return app """
 
-def check_result():
+""" def check_result():
     app = Application().start('C:/Program Files/Notepad++/notepad++.exe')
     notepad = app[u'Notepad++']
     notepad.menu_select("File->Save")
@@ -45,31 +58,31 @@ def check_result():
     notepad.Да.click()
     notepad.menu_select("File->Save")
     notepad.Открыть.Открыть.click(double=True)
-    print(notepad.Edit.window_text())
+    print(notepad.Edit.window_text()) """
 
 def main_test():
-    for i in range(0):
-        text_generator()
-        common_notepad(rand_string)
-    for i in range(2):    
+    result = str()
+    text_generator()
+    common_notepad(rand_string)
+    check_result(rand_string, result)
+
+
+
+    """ for i in range(2):    
         text_generator()
         final_text = str()
         notepadplusplus(rand_string)
         final_text += rand_string
         app.kill(soft=False)
-    check_result()
-    '''print('!!!!!!!!!!!!!!!!!!!!!!')
-    print(f'read_text = {read_text}')
-    print(f'final_text = {final_text}')
-    print('!!!!!!!!!!!!!!!!!!!!!!')
+    check_result() """
     eraser = '^a' + '{BACKSPACE}'
-    notepadplusplus(eraser)'''
+    
 
 
 #main_test()
 #check_result()
-text_generator()
-notepadplusplus(rand_string)
-common_notepad(rand_string)
+#text_generator()
+#notepadplusplus(rand_string)
+#common_notepad(rand_string)
 
 
