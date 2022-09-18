@@ -1,6 +1,6 @@
-from challenge_desktop import check_result
+from challenge_desktop import main_test
 import pytest
 
-@pytest.mark.parametrize('rand_string, result, expected_result', [('242141', '242141', 'PASS'), ('21412', '21451512', 'FALL'), ('45215', '', 'EMPETY')])
-def test_check_result_good(rand_string, result, expected_result):
-    assert check_result(rand_string, result) == expected_result
+@pytest.mark.parametrize('path_to_app, expected_result', [('C:/Windows/system32/notepad.exe', 'FALL')])
+def test_check_result_good(path_to_app, expected_result):
+    assert main_test(path_to_app) == expected_result
