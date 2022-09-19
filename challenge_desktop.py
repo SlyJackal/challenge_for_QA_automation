@@ -26,19 +26,11 @@ def get_result(path_to_app, sleep_time = 2):
     app.kill(soft=True)
     return result
 
-def check_result(rand_string, result):
-    if result == rand_string:
-        return 'PASS'
-    else:
-        return 'FALL'
-
 def main_test(path_to_app):
     rand_string = text_generator()
     app_test(rand_string, path_to_app)
     result = get_result(path_to_app)
-    check_result(rand_string, result)
-    finish = check_result(rand_string, result)
-    return finish
+    assert result == rand_string
 
 if __name__ == "__main__":
     print("It's a test body. Use Pytest file")
