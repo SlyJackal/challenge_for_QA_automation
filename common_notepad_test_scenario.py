@@ -26,14 +26,14 @@ def get_result(path_to_app, sleep_time = 2):
     app.kill(soft=True)
     return result
 
-def main_test(path_to_app):
+def main_test(path_to_app, input_result):
     rand_string = text_generator()
     app_test(rand_string, path_to_app)
     result = get_result(path_to_app)
-    assert result == rand_string
+    assert result == input_result, "Textfield is not correct!"
+
 
 if __name__ == "__main__":
-    print("It's a test body. Use Pytest file")
-
+    print("Please use test_in_pytest_test.py to launch test!")
 
 
