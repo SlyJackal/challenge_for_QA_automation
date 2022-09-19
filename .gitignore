@@ -1,0 +1,15 @@
+__pycache__/challenge_desktop.cpython-310.pyc
+__pycache__/common_notepad_pytest_test.cpython-310-pytest-7.1.2.pyc
+__pycache__/common_notepad_test_scenario.cpython-310.pyc
+__pycache__/common_notepad_test.cpython-310-pytest-7.1.2.pyc
+__pycache__/launch_pytest_test.cpython-310-pytest-7.1.2.pyc
+__pycache__/test_check_result_func.cpython-310-pytest-7.1.2.pyc
+__pycache__/tests_in_pytest_test.cpython-310-pytest-7.1.2.pyc
+.idea/.gitignore
+.idea/challenge_for_QA_automation.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.vscode/settings.json
+experiments.py
