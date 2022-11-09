@@ -27,7 +27,7 @@ def get_result(path_to_app, sleep_time = 2):
     return result
 
 def main_test(path_to_app, input_result):
-    rand_string = text_generator()
+    rand_string = "!ad"
     app_test(rand_string, path_to_app)
     result = get_result(path_to_app)
     assert result == input_result, "Textfield is not correct!"
